@@ -1,0 +1,53 @@
+services:
+    php:
+        container_name: best_ever_world_php
+        restart: on-failure
+        build: ./php/base
+        environment:
+            PHP_IDE_CONFIG: ${PHP_IDE_CONFIG}
+        volumes:
+            - ./../:/var/www
+        networks:
+            - local_dev_network_best_ever_world
+
+    nginx:
+        container_name: best_ever_world_nginx
+        restart: on-failure
+        build: ./nginx/base
+        volumes:
+            - ./../:/var/www
+            - ./nginx/base/conf:/etc/nginx/conf.d
+            - ./nginx/base/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - "${APP_PORT}:80"
+        depends_on:
+            - php
+        networks:
+            - local_dev_network_best_ever_world
+
+    mysql:
+        container_name: best_ever_world_mysql
+        image: mysql:8.0
+        restart: on-failure
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+        ports:
+            - '${DB_PORT}:3306'
+        volumes:
+            - ./../data/mysql/:/var/lib/mysql
+        networks:
+            - local_dev_network_best_ever_world
+        healthcheck:
+            test: mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} status >/dev/null 2>/dev/null
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+volumes:
+    mysql:
+
+networks:
+    local_dev_network_best_ever_world:

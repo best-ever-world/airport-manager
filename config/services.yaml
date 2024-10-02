@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    BestEverWorld\AirportManager\Api\:
+        resource: '../src/Api'
+        exclude:
+            - '../src/Api/Model/'
+            - '../src/Api/Request/'
+            - '../src/Api/Response/'
+
+    BestEverWorld\AirportManager\App\:
+        resource: '../src/App'
+        exclude:
+            - '../src/App/Entity/'
+            - '../src/App/Event/'
+            - '../src/App/Exception/'
+            - '../src/App/Model/'
+            - '../src/App/Kernel.php'
+
+    BestEverWorld\AirportManager\Fixtures\:
+        resource: '../fixtures'

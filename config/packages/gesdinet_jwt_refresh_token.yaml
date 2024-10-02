@@ -1,0 +1,7 @@
+gesdinet_jwt_refresh_token:
+    refresh_token_class: BestEverWorld\AirportManager\App\Entity\UserTokenRefresh
+    ttl: '%env(int:JWT_TOKEN_REFRESH_LIFESPAN)%'
+    token_parameter_name: refresh_token
+    logout_firewall: api_admin
+    return_expiration: true
+    single_use: true

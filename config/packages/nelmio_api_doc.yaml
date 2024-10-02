@@ -1,0 +1,71 @@
+nelmio_api_doc:
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$)
+    documentation:
+        info:
+            title: Airport Manager
+            description: The best ever world Airport Manager application
+            version: 1.0.0
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - Bearer: [ ]
+        paths:
+            /api/auth/login:
+                post:
+                    tags:
+                        - Security
+                    summary: Login
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        username:
+                                            type: string
+                                        password:
+                                            type: string
+                                    type: object
+                    responses:
+                        '200':
+                            description: OK
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                            refresh_token:
+                                                type: string
+                                            refresh_token_expiration:
+                                                type: integer
+                        '400':
+                            description: Bad Request
+                        '401':
+                            description: Unauthorized
+                        '422':
+                            description: Unprocessable Entity
+                        '429':
+                            description: Too Many Requests
+            /api/auth/logout:
+                post:
+                    tags:
+                        - Security
+                    summary: Logout
+                    responses:
+                        '200':
+                            description: OK
+                        '400':
+                            description: Bad Request
+                        '401':
+                            description: Unauthorized
+                        '422':
+                            description: Unprocessable Entity
+                        '429':
+                            description: Too Many Requests

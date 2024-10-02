@@ -1,0 +1,28 @@
+api.controllers:
+    resource:
+        path: ../src/Api/Controller/
+        namespace: BestEverWorld\AirportManager\Api\Controller
+    type: attribute
+
+app.controllers:
+    resource:
+        path: ../src/App/Controller/
+        namespace: BestEverWorld\AirportManager\App\Controller
+    type: attribute
+
+app.redocly:
+    path: /api/doc
+    methods: GET
+    defaults: { _controller: nelmio_api_doc.controller.redocly }
+
+api_auth:
+    path: /api/auth/login
+    methods: ['POST']
+
+api_logout:
+    path: /api/auth/logout
+    methods: [ 'POST' ]
+
+api_token_refresh:
+    path: /api/token/refresh
+    methods: [ 'POST' ]
